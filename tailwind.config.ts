@@ -11,6 +11,10 @@ const config: Config = {
   theme: {
   	extend: {
   		colors: {
+			'pull-up': 'hsl(var(--chart-pull-up))', // Utilisation de la variable CSS
+			'muscle-up': 'hsl(var(--chart-muscle-up))',
+			'dips': 'hsl(var(--chart-dips))',
+			'squat': 'hsl(var(--chart-squat))',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {

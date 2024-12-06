@@ -54,7 +54,7 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps): JSX.Elem
     return (
         <div className="rounded-md bg-white shadow-lg p-2 text-sm text-gray-800">
             <p className="font-medium">Date: {label}</p>
-            <p>Tonnage: {data.tonnage}</p>
+            <p>Tonnage: {data.tonnage} kg</p>
             <p>Détails: {data.serie} séries x {data.rep} reps x {data.weight} kg</p>
         </div>
     );
