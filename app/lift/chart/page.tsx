@@ -1,16 +1,13 @@
 "use client"
 
-import { TrendingUp } from "lucide-react"
 import { Label, Pie, PieChart } from "recharts"
-
-
 import {
     ChartConfig,
     ChartContainer,
     ChartTooltip,
     ChartTooltipContent,
 } from "@/components/ui/chart"
-import { Lift, LiftWithId } from "@/src/schemas/liftSchema"
+import { LiftWithId } from "@/src/schemas/liftSchema"
 import axios from "axios"
 import { useQuery } from "react-query"
 import Loader from "@/src/components/Loader"
@@ -41,7 +38,7 @@ export default function Component() {
     if (!lifts.length) return <p className="p-5">Pas de lift.</p>
 
     // Étape 1 : Agréger les données par type
-    const liftCounts = lifts.reduce((acc: Record<string, number>, lift: any) => {
+    const liftCounts = lifts.reduce((acc: Record<string, number>, lift: LiftWithId) => {
         acc[lift.type] = (acc[lift.type] || 0) + 1;
         return acc;
     }, {});

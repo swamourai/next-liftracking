@@ -9,6 +9,9 @@ export async function GET() {
     const lifts = await prisma.lift.findMany();
     return NextResponse.json(lifts);
   } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);  // Utilisation des propriétés de l'erreur
+    }
     return NextResponse.error();
   }
 }
@@ -24,7 +27,6 @@ export async function POST(req: Request) {
 
     return NextResponse.json(newLift);
   } catch (error) {
-    console.log(error)
     if (error instanceof z.ZodError) {
       return NextResponse.json({ error: error.errors }, { status: 400 });
     }

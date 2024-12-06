@@ -22,6 +22,9 @@ export async function GET(req: Request) {
 
         return NextResponse.json(lifts);
     } catch (error) {
+        if (error instanceof Error) {
+            console.error(error.message);  // Utilisation des propriétés de l'erreur
+        }
         return NextResponse.error();
     }
 }

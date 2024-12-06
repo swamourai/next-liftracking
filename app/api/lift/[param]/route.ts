@@ -20,6 +20,9 @@ export async function GET(req: Request, { params }: { params: { param: string } 
       
           return NextResponse.json(lift);
         } catch (error) {
+          if (error instanceof Error) {
+            console.error(error.message);  // Utilisation des propriétés de l'erreur
+          }
           return NextResponse.error();
         }
     } else {

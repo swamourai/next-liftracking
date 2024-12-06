@@ -6,8 +6,7 @@ import { useEffect, useMemo } from "react"
 import axios from "axios"
 import { useQuery } from "react-query"
 import { format } from "date-fns";
-
-import { CartesianGrid, LabelList, Line, LineChart, XAxis, YAxis } from "recharts"
+import { CartesianGrid, LabelList, Line, LineChart, XAxis } from "recharts"
 
 import {
     ChartConfig,
@@ -36,7 +35,19 @@ type ChartData = {
     tonnage: number; // Tonnage total pour cette date
 };
 
-const CustomTooltip = ({ active, payload, label }: any) => {
+interface TooltipData {
+    tonnage: number;
+    serie: number;
+    rep: number;
+    weight: number;
+}
+interface CustomTooltipProps {
+    active?: boolean;
+    payload?: { payload: TooltipData }[];  // Le payload est un tableau d'objets avec une clé 'payload' qui contient les données du graphique
+    label?: string;
+}
+
+const CustomTooltip = ({ active, payload, label }: CustomTooltipProps): JSX.Element | null => {
     if (!active || !payload || payload.length === 0) return null;
 
     const data = payload[0].payload; // Récupérer les données associées au point

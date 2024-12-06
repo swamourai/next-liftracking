@@ -2,7 +2,7 @@
 "use client"
 import { useMutation, useQuery } from "react-query";
 import axios from "axios";
-import { Lift, LiftWithId } from "@/src/schemas/liftSchema";
+import { LiftWithId } from "@/src/schemas/liftSchema";
 import { useEffect, useState } from "react";
 import { dayByDate } from "@/src/lib/utils";
 import {
@@ -46,7 +46,7 @@ const LiftListPage = () => {
 
     const deleteMutation = useMutation(
         async (id: number) => {
-            const res = await axios.delete(`/api/lift/${id}`);
+            await axios.delete(`/api/lift/${id}`);
         }, {
         onSuccess: () => {
             setOpenDialog(false);
@@ -99,7 +99,7 @@ const LiftListPage = () => {
                             </Avatar>
                         </span>
                         <span className="flex-1">{dayByDate(lift.date)}</span>
-                        <span className="flex-1">{lift.failure ? <TicketCheck /> : <TicketCheck />}</span>
+                        <span className="flex-1">{lift.failure ? <TicketX /> : <TicketCheck />}</span>
                         <span className="flex-1 capitalize">{lift.type}</span>
                         <span className="flex-1">{lift.serie} x {lift.rep} reps</span>
                         <span className="flex-1">{lift.weight} kg</span>

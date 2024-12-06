@@ -19,7 +19,7 @@ import { CalendarIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Textarea } from "@/components/ui/textarea"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Lift, LiftWithId } from "../schemas/liftSchema";
+import { Lift } from "../schemas/liftSchema";
 import { useEffect, useState } from "react";
 import { liftNames } from "../schemas/liftNameSchema";
 

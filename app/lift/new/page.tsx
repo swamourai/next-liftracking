@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useMutation } from "react-query";
 import axios from "axios";
-import { Lift, liftSchema, LiftWithId } from "@/src/schemas/liftSchema";
+import { Lift, liftSchema } from "@/src/schemas/liftSchema";
 import { toast } from "react-toastify";
 import { useRouter } from 'next/navigation'
 import FormLift from "@/src/components/FormLift";
@@ -27,7 +27,7 @@ const AddLiftPage = () => {
     // add
     const router = useRouter()
     const { mutate: addNewLift, isLoading } = useMutation(addLift, {
-        onSuccess: (data, variables, context) => {
+        onSuccess: () => {
             toast.success('Lift ajouté !');
             queryClient.invalidateQueries(["lift", "all"]);
             router.push('/lift/all')
@@ -67,7 +67,7 @@ const AddLiftPage = () => {
 
     useEffect(() => {
         if (errorMessages.length) {
-            errorMessages.forEach((message, index) => (
+            errorMessages.forEach((message) => (
                 toast.warn(message)
             ))
         }
