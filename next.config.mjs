@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     reactStrictMode: true,
-    eslint: {
-        ignoreDuringBuilds: process.env.NEXT_ESLINT_IGNORE === 'true', // Utilise la variable d'environnement pour ignorer ESLint
-      },
+    env: {
+      DATABASE_URL: process.env.DATABASE_URL, // Assurez-vous que la variable est disponible
+    },
 };
 
 export default nextConfig;

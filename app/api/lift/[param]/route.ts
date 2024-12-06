@@ -34,7 +34,8 @@ export async function GET(req: Request, { params }: { params: { param: string } 
         });
 
         return NextResponse.json(lifts);
-      } catch {
+      } catch(error) {
+          console.error('Error in API /api/lift:', error);
           return NextResponse.json({ error: "Invalid lift type" }, { status: 400 });
       }
     }
