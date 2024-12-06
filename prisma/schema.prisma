@@ -1,0 +1,30 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Lift {
+  id          Int       @id @default(autoincrement())
+  rpe         Int
+  rep         Int
+  serie       Int
+  weight      Float
+  userId      Int
+  type        String
+  date        DateTime  @default(now())
+  comment     String?   // Ce champ est nullable
+  failure     Boolean?  // Ce champ est optionnel
+  failureSerie Int?     // Ce champ est optionnel
+  failureRep   Int?     // Ce champ est optionnel
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  email    String
+  username String
+  password String
+}
