@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import React from 'react'
+import React from 'react';
 import Link from "next/link";
 import { List, SquarePen, ChartArea } from 'lucide-react';
 import Breadcrumb from './Breadcrumb';
@@ -27,7 +27,7 @@ function Nav() {
                 </Link>
             </div>
         </nav>
-    )
+    );
 }
 
-export default Nav
+export default Nav;

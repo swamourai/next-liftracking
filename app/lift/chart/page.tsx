@@ -1,20 +1,20 @@
-"use client"
+"use client";
 
-import { Label, Pie, PieChart } from "recharts"
+import { Label, Pie, PieChart } from "recharts";
 import {
     ChartConfig,
     ChartContainer,
     ChartTooltip,
     ChartTooltipContent,
-} from "@/components/ui/chart"
-import { LiftWithId } from "@/src/schemas/liftSchema"
-import axios from "axios"
-import { useQuery } from "react-query"
-import Loader from "@/src/components/Loader"
-import { dayByDate } from "@/src/lib/utils"
-import { useEffect } from "react"
-import Link from "next/link"
-import { usePageContext } from "@/src/contexts/breadcrumbContext"
+} from "@/components/ui/chart";
+import { LiftWithId } from "@/src/schemas/liftSchema";
+import axios from "axios";
+import { useQuery } from "react-query";
+import Loader from "@/src/components/Loader";
+import { dayByDate } from "@/src/lib/utils";
+import { useEffect } from "react";
+import Link from "next/link";
+import { usePageContext } from "@/src/contexts/breadcrumbContext";
 
 export default function Component() {
 
@@ -32,10 +32,10 @@ export default function Component() {
     };
     const { data: lifts, isLoading, isError, isIdle } = useQuery(["lift", "all"], fetchLifts);
 
-    if (isLoading || isIdle) return <Loader />
-    if (isError) return <p>Error</p>
+    if (isLoading || isIdle) return <Loader />;
+    if (isError) return <p>Error</p>;
 
-    if (!lifts.length) return <p className="p-5">Pas de lift.</p>
+    if (!lifts.length) return <p className="p-5">Pas de lift.</p>;
 
     // Étape 1 : Agréger les données par type
     const liftCounts = lifts.reduce((acc: Record<string, number>, lift: LiftWithId) => {
@@ -66,9 +66,9 @@ export default function Component() {
             label: "Squat",
             color: "hsl(var(--chart-squat))",
         },
-    } satisfies ChartConfig
+    } satisfies ChartConfig;
 
-    const totalLift = chartData.reduce((acc, curr) => acc + curr.number, 0)
+    const totalLift = chartData.reduce((acc, curr) => acc + curr.number, 0);
 
     const getMinMaxDates = (lifts: { date: string | Date }[]) => {
         const dates = lifts.map((lift) =>
@@ -130,7 +130,7 @@ export default function Component() {
                                                     Lifts
                                                 </tspan>
                                             </text>
-                                        )
+                                        );
                                     }
                                 }}
                             />
@@ -149,5 +149,5 @@ export default function Component() {
                 ))}
             </ul>
         </div>
-    )
+    );
 }

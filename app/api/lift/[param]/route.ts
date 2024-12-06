@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/src/lib/prisma";
-import { Prisma } from '@prisma/client'
+import { Prisma } from '@prisma/client';
 import { liftWithIdSchema } from "@/src/schemas/liftSchema";
 import { z } from "zod";
 import { liftNameSchema } from "@/src/schemas/liftNameSchema";
@@ -8,7 +8,7 @@ import { liftNameSchema } from "@/src/schemas/liftNameSchema";
 export async function GET(req: Request, { params }: { params: { param: string } }) {
     const { param } = params;
     if (!isNaN(Number(param))) {
-      const id = param
+      const id = param;
       try {
           const lift = await prisma.lift.findUnique({
             where: { id: parseInt(id, 10) }, // Convertir l'ID en nombre
@@ -19,10 +19,7 @@ export async function GET(req: Request, { params }: { params: { param: string } 
           }
       
           return NextResponse.json(lift);
-        } catch (error) {
-          if (error instanceof Error) {
-            console.error(error.message);  // Utilisation des propriétés de l'erreur
-          }
+        } catch {
           return NextResponse.error();
         }
     } else {
@@ -34,8 +31,7 @@ export async function GET(req: Request, { params }: { params: { param: string } 
         });
 
         return NextResponse.json(lifts);
-      } catch(error) {
-          console.error('Error in API /api/lift:', error);
+      } catch {
           return NextResponse.json({ error: "Invalid lift type" }, { status: 400 });
       }
     }

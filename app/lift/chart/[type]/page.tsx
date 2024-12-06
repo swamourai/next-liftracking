@@ -1,21 +1,21 @@
-"use client"
+"use client";
 
-import { liftNameSchema } from "@/src/schemas/liftNameSchema"
-import { notFound, useParams } from "next/navigation"
-import { useEffect, useMemo } from "react"
-import axios from "axios"
-import { useQuery } from "react-query"
+import { liftNameSchema } from "@/src/schemas/liftNameSchema";
+import { notFound, useParams } from "next/navigation";
+import { useEffect, useMemo } from "react";
+import axios from "axios";
+import { useQuery } from "react-query";
 import { format } from "date-fns";
-import { CartesianGrid, LabelList, Line, LineChart, XAxis } from "recharts"
+import { CartesianGrid, LabelList, Line, LineChart, XAxis } from "recharts";
 
 import {
     ChartConfig,
     ChartContainer,
     ChartTooltip,
-} from "@/components/ui/chart"
-import Loader from "@/src/components/Loader"
-import { LiftWithId } from "@/src/schemas/liftSchema"
-import { usePageContext } from "@/src/contexts/breadcrumbContext"
+} from "@/components/ui/chart";
+import Loader from "@/src/components/Loader";
+import { LiftWithId } from "@/src/schemas/liftSchema";
+import { usePageContext } from "@/src/contexts/breadcrumbContext";
 
 // Fonction pour récupérer les lifts (avec option de filtrage)
 const fetchLifts = async (liftType: string): Promise<LiftWithId[]> => {
@@ -64,35 +64,38 @@ function ChartType() {
     const params = useParams<{ type: string }>();
     const type = params.type;
 
-    // Valider le type avant les Hooks
-    const parse = liftNameSchema.safeParse(type);
-    if (!parse.success) {
-        return notFound();
-    }
-
+    // Appel des hooks en premier
     const { setBreadcrumbs } = usePageContext();
+    const { data: lifts, isLoading } = useLifts(type);
 
     useEffect(() => {
         setBreadcrumbs([
             { title: 'Statistique', url: '/lift/chart' },
             { title: type }
         ]);
-    }, [setBreadcrumbs]);
+    }, [setBreadcrumbs, type]);
 
-    const { data: lifts, isLoading } = useLifts(type);
+    // Validation du type après l'appel des hooks
+    const parse = liftNameSchema.safeParse(type);
 
-    // Ne pas conditionner les Hooks
+    // Utilisation de useMemo et useEffect de manière inconditionnelle
     const chartData: ChartData[] = useMemo(() => {
-        if (!lifts) return [];
+        if (!lifts) return [];  // Si aucune donnée n'est retournée, renvoie un tableau vide
 
+        // Transformation des données de `lifts` pour préparer `chartData`
         return lifts.map((lift: LiftWithId) => ({
             date: format(new Date(lift.date), "dd/MM"),
             tonnage: lift.weight * lift.rep * lift.serie,
-            serie: lift.serie, // Ajout
-            rep: lift.rep,     // Ajout
+            serie: lift.serie,   // Ajout
+            rep: lift.rep,       // Ajout
             weight: lift.weight, // Ajout
         }));
     }, [lifts]);
+
+    // Si la validation échoue, on retourne immédiatement
+    if (!parse.success) {
+        return notFound();  // Retourne 404 si le type est invalide
+    }
 
     if (isLoading) return <Loader />;
 
@@ -150,10 +153,8 @@ function ChartType() {
                     </Line>
                 </LineChart>
             </ChartContainer>
-
         </div>
     );
 }
 
-
-export default ChartType
+export default ChartType;

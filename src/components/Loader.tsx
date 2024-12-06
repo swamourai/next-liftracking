@@ -5,7 +5,7 @@ function Loader() {
         <p className="p-10">
             <LoaderCircle className="animate-spin m-auto" />
         </p>
-    )
+    );
 }
 
-export default Loader
+export default Loader;

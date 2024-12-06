@@ -1,11 +1,11 @@
 // app/lift/new/page.tsx
-"use client"
+"use client";
 import { useEffect, useState } from "react";
 import { useMutation } from "react-query";
 import axios from "axios";
 import { Lift, liftSchema } from "@/src/schemas/liftSchema";
 import { toast } from "react-toastify";
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
 import FormLift from "@/src/components/FormLift";
 import queryClient from "@/src/lib/react-query";
 import { usePageContext } from "@/src/contexts/breadcrumbContext";
@@ -25,12 +25,12 @@ const AddLiftPage = () => {
         ]);
     }, [setBreadcrumbs]);
     // add
-    const router = useRouter()
+    const router = useRouter();
     const { mutate: addNewLift, isLoading } = useMutation(addLift, {
         onSuccess: () => {
             toast.success('Lift ajouté !');
             queryClient.invalidateQueries(["lift", "all"]);
-            router.push('/lift/all')
+            router.push('/lift/all');
         },
     });
 
@@ -69,9 +69,9 @@ const AddLiftPage = () => {
         if (errorMessages.length) {
             errorMessages.forEach((message) => (
                 toast.warn(message)
-            ))
+            ));
         }
-    }, [errorMessages])
+    }, [errorMessages]);
 
     return (
         <div>

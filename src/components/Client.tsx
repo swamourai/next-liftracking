@@ -1,19 +1,19 @@
-'use client'
+'use client';
 
-import { QueryClientProvider } from "react-query"
-import queryClient from "../lib/react-query"
-import { Oswald } from 'next/font/google'
-import Nav from "@/src/components/Nav"
+import { QueryClientProvider } from "react-query";
+import queryClient from "../lib/react-query";
+import { Oswald } from 'next/font/google';
+import Nav from "@/src/components/Nav";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.min.css';
-import { PageProvider } from "../contexts/breadcrumbContext"
+import { PageProvider } from "../contexts/breadcrumbContext";
 
 const oswald = Oswald({
     weight: ['400', '700'],
     style: ['normal'],
     subsets: ['latin'],
     display: 'swap',
-})
+});
 
 export default function Client({
     children
@@ -35,5 +35,5 @@ export default function Client({
                     autoClose={3000} />
             </PageProvider>
         </QueryClientProvider>
-    )
+    );
 }

@@ -1,9 +1,11 @@
-import { Calendar } from "@/components/ui/calendar"
+"use client";
+
+import { Calendar } from "@/components/ui/calendar";
 import {
     Popover,
     PopoverContent,
     PopoverTrigger,
-} from "@/components/ui/popover"
+} from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -12,13 +14,13 @@ import {
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select";
 import { CirclePlus } from 'lucide-react';
-import { format } from "date-fns"
-import { CalendarIcon } from "lucide-react"
-import { cn } from "@/lib/utils"
-import { Textarea } from "@/components/ui/textarea"
-import { Checkbox } from "@/components/ui/checkbox"
+import { format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Lift } from "../schemas/liftSchema";
 import { useEffect, useState } from "react";
 import { liftNames } from "../schemas/liftNameSchema";
@@ -29,12 +31,11 @@ function FormLift({ handleSubmit, basedLift, isLoading, isUpdateLift }: {
     isLoading: boolean,
     isUpdateLift?: boolean
 }) {
-    const [date, setDate] = useState<Date>(basedLift.date)
-
+    const [date, setDate] = useState<Date>(basedLift.date);
     const [newLift, setNewLift] = useState<Lift>(basedLift);
 
     useEffect(() => {
-        setNewLift({ ...newLift, date: date })
+        setNewLift(prevLift => ({ ...prevLift, date: date }));
     }, [date]);
 
     return (
@@ -137,7 +138,7 @@ function FormLift({ handleSubmit, basedLift, isLoading, isUpdateLift }: {
             </div>
             {newLift.failure && <div className="grid grid-cols-2 gap-5 mb-5">
                 <div>
-                    <label htmlFor="failure-serie">Série de l'échec</label>
+                    <label htmlFor="failure-serie">Série de l&apos;échec</label>
                     <Input
                         id="failure-serie"
                         type="number"
@@ -146,7 +147,7 @@ function FormLift({ handleSubmit, basedLift, isLoading, isUpdateLift }: {
                     />
                 </div>
                 <div>
-                    <label htmlFor="failure-rep">Rép à l'échec</label>
+                    <label htmlFor="failure-rep">Rép à l&apos;échec</label>
                     <Input
                         id="failure-rep"
                         type="number"
@@ -159,7 +160,7 @@ function FormLift({ handleSubmit, basedLift, isLoading, isUpdateLift }: {
                 <CirclePlus /> {isUpdateLift ? 'Modifier' : 'Ajouter'} le lift
             </Button>
         </form>
-    )
+    );
 }
 
-export default FormLift
+export default FormLift;

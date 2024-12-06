@@ -1,5 +1,5 @@
 // app/lifts/page.tsx
-"use client"
+"use client";
 import { useMutation, useQuery } from "react-query";
 import axios from "axios";
 import { LiftWithId } from "@/src/schemas/liftSchema";
@@ -8,7 +8,7 @@ import { dayByDate } from "@/src/lib/utils";
 import {
     Avatar,
     AvatarImage,
-} from "@/components/ui/avatar"
+} from "@/components/ui/avatar";
 import { CircleX } from 'lucide-react';
 import queryClient from "@/src/lib/react-query";
 import { toast } from 'react-toastify';
@@ -19,7 +19,7 @@ import {
     DialogHeader,
     DialogTitle,
     DialogFooter,
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Pencil, TicketCheck, TicketX } from 'lucide-react';
@@ -27,14 +27,14 @@ import Loader from "@/src/components/Loader";
 import { usePageContext } from "@/src/contexts/breadcrumbContext";
 
 const LiftListPage = () => {
-    const [openDialog, setOpenDialog] = useState(false)
-    const [liftToDelete, setLiftToDelete] = useState<LiftWithId | null>(null)
+    const [openDialog, setOpenDialog] = useState(false);
+    const [liftToDelete, setLiftToDelete] = useState<LiftWithId | null>(null);
 
     useEffect(() => {
         if (!openDialog && liftToDelete) {
-            setLiftToDelete(null)
+            setLiftToDelete(null);
         }
-    }, [openDialog])
+    }, [openDialog, liftToDelete]);
 
     const { setBreadcrumbs } = usePageContext();
 
@@ -57,7 +57,7 @@ const LiftListPage = () => {
             queryClient.invalidateQueries(["lift", "all"]);
         },
     }
-    )
+    );
 
     const fetchLifts = async (): Promise<LiftWithId[]> => {
         const { data } = await axios.get("/api/lift");
@@ -71,7 +71,7 @@ const LiftListPage = () => {
     const handleDeleteButton = (lift: LiftWithId) => {
         setLiftToDelete(lift);
         setOpenDialog(true);
-    }
+    };
 
     return (
         <div>

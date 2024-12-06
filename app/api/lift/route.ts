@@ -8,10 +8,7 @@ export async function GET() {
   try {
     const lifts = await prisma.lift.findMany();
     return NextResponse.json(lifts);
-  } catch (error) {
-    if (error instanceof Error) {
-      console.error(error.message);  // Utilisation des propriétés de l'erreur
-    }
+  } catch {
     return NextResponse.error();
   }
 }
@@ -26,10 +23,7 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json(newLift);
-  } catch (error) {
-    if (error instanceof z.ZodError) {
-      return NextResponse.json({ error: error.errors }, { status: 400 });
-    }
+  } catch {
     return NextResponse.error();
   }
 }
@@ -58,7 +52,6 @@ export async function PUT(req: Request) {
 
     return NextResponse.json(updatedLift);  // Retourner le lift mis à jour
   } catch (error) {
-    console.log(error);
     if (error instanceof z.ZodError) {
       return NextResponse.json({ error: error.errors }, { status: 400 });
     }

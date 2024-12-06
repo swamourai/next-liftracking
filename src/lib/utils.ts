@@ -1,5 +1,5 @@
 export function dayByDate(datetime:Date) {
-    const date = new Date(datetime)
+    const date = new Date(datetime);
     const yyyy = date.getFullYear();
     let mm: number | string = date.getMonth() + 1; // Months start at 0!
     let dd: number | string = date.getDate();
