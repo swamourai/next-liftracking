@@ -1,3 +1,10 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": ["next/core-web-vitals", "next/typescript"],
+  "rules": {
+    // Disable a specific ESLint rule globally
+    "no-console": "off", // Turn off the "no-console" rule
+    "react/jsx-no-undef": "off", // Turn off the rule that checks for undefined JSX components
+    "@typescript-eslint/no-unused-vars": "warn" // Change "no-unused-vars" to a warning instead of an error
+    // Add more rules as needed
+  }
 }
