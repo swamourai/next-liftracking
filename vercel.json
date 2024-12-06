@@ -1,11 +1,19 @@
 {
+    "version": 2,
     "builds": [
       {
         "src": "next.config.mjs",
         "use": "@vercel/next"
       }
     ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "/$1"
+      }
+    ],
     "env": {
-      "DATABASE_URL": "file:/vercel/path/to/db.sqlite"
+      "DATABASE_URL": "sqlite:./db.sqlite"
     }
   }
+  
