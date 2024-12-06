@@ -2,7 +2,7 @@
     "version": 2,
     "builds": [
       {
-        "src": "next.config.mjs",
+        "src": "package.json",
         "use": "@vercel/next"
       }
     ],
@@ -11,9 +11,6 @@
         "src": "/(.*)",
         "dest": "/$1"
       }
-    ],
-    "env": {
-      "DATABASE_URL": "sqlite:./db.sqlite"
-    }
+    ]
   }
   
