@@ -138,7 +138,7 @@ function FormLift({ handleSubmit, basedLift, isLoading, idUpdateLift }: {
             </div>
             <div className="mb-5">
                 <label>Commentaire</label>
-                <Textarea onChange={e => setNewLift({ ...newLift, comment: e.target.value || null })} placeholder="Commentaire sur le lift" />
+                <Textarea value={newLift.comment || ''} onChange={e => setNewLift({ ...newLift, comment: e.target.value || null })} placeholder="Commentaire sur le lift" />
             </div>
             <div className="flex items-center space-x-2 mb-5">
                 <Checkbox id="failure" checked={Boolean(newLift.failure)} onCheckedChange={check => setNewLift({ ...newLift, failure: Boolean(check) })} />

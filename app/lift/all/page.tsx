@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/avatar";
 import { CircleX } from 'lucide-react';
 import Link from "next/link";
-import { Pencil, TicketCheck, TicketX } from 'lucide-react';
+import { Pencil, TicketCheck, TicketX, MessageCircle } from 'lucide-react';
 import Loader from "@/src/components/Loader";
 import { usePageContext } from "@/src/contexts/breadcrumbContext";
 import { useDeleteLiftContext } from "@/src/contexts/deleteLiftContext";
@@ -54,7 +54,10 @@ const LiftListPage = () => {
                             </Avatar>
                         </span>
                         <span className="flex-1">{dayByDate(lift.date)}</span>
-                        <span className="flex-1">{lift.failure ? <TicketX /> : <TicketCheck />}</span>
+                        <span className="flex-1 flex gap-2">
+                            {lift.failure ? <TicketX /> : <TicketCheck />}
+                            {lift.comment ? <MessageCircle /> : null}
+                        </span>
                         <span className="flex-1 capitalize">{lift.type}</span>
                         <span className="flex-1">{lift.serie} x {lift.rep} reps</span>
                         <span className="flex-1">{lift.weight} kg</span>
