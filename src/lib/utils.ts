@@ -9,3 +9,7 @@ export function dayByDate(datetime:Date) {
 
     return dd + '/' + mm + '/' + yyyy;
 }
+
+export function sum(a: number, b: number): number {
+    return a + b;
+  }

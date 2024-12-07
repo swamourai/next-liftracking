@@ -15,7 +15,6 @@ import { Pencil, TicketCheck, TicketX, MessageCircle } from 'lucide-react';
 import Loader from "@/src/components/Loader";
 import { usePageContext } from "@/src/contexts/breadcrumbContext";
 import { useDeleteLiftContext } from "@/src/contexts/deleteLiftContext";
-import clsx from "clsx";
 
 const LiftListPage = () => {
     const { setOpenDialog, setLiftToDelete } = useDeleteLiftContext();
