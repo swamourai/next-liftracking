@@ -41,6 +41,8 @@ const LiftListPage = () => {
         setOpenDialog(true);
     };
 
+    if (!lifts.length) return <p className="p-5">Pas de lift disponible.</p>;
+
     return (
         <div>
             <ul>
