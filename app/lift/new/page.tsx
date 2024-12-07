@@ -35,9 +35,9 @@ const AddLiftPage = () => {
     });
 
     const basedLift: Lift = {
-        rpe: 1,
+        rpe: 7,
         rep: 1,
-        weight: 1,
+        weight: 10,
         type: "",
         userId: 1,
         serie: 1,

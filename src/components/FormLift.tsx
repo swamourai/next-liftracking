@@ -15,31 +15,44 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { CirclePlus } from 'lucide-react';
+import { CirclePlus, CircleX } from 'lucide-react';
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Lift } from "../schemas/liftSchema";
+import { Lift, LiftWithId } from "../schemas/liftSchema";
 import { useEffect, useState } from "react";
 import { liftNames } from "../schemas/liftNameSchema";
+import { useDeleteLiftContext } from "../contexts/deleteLiftContext";
 
-function FormLift({ handleSubmit, basedLift, isLoading, isUpdateLift }: {
+function FormLift({ handleSubmit, basedLift, isLoading, idUpdateLift }: {
     handleSubmit: (e: React.FormEvent, newLift: Lift) => void,
     basedLift: Lift,
     isLoading: boolean,
-    isUpdateLift?: boolean
+    idUpdateLift?: number
 }) {
     const [date, setDate] = useState<Date>(basedLift.date);
     const [newLift, setNewLift] = useState<Lift>(basedLift);
+
+    const { setOpenDialog, setLiftToDelete } = useDeleteLiftContext();
 
     useEffect(() => {
         setNewLift(prevLift => ({ ...prevLift, date: date }));
     }, [date]);
 
+    const handleDeleteButton = (lift: LiftWithId) => {
+        setLiftToDelete(lift);
+        setOpenDialog(true);
+    };
+
     return (
         <form onSubmit={e => handleSubmit(e, newLift)} className="p-5">
+            {idUpdateLift && <div className="flex mb-5 justify-end">
+                <Button onClick={() => handleDeleteButton({ ...newLift, id: idUpdateLift })} variant="destructive">
+                    <CircleX /> Supprimer le lift
+                </Button>
+            </div>}
             <div className="grid grid-cols-2 gap-5 mb-5">
                 <div>
                     <label>Date</label>
@@ -156,8 +169,8 @@ function FormLift({ handleSubmit, basedLift, isLoading, isUpdateLift }: {
                     />
                 </div>
             </div>}
-            <Button disabled={isLoading} type="submit" variant="outline" className="w-full">
-                <CirclePlus /> {isUpdateLift ? 'Modifier' : 'Ajouter'} le lift
+            <Button disabled={isLoading} type="submit" variant="default" className="w-full">
+                <CirclePlus /> {idUpdateLift ? 'Modifier' : 'Ajouter'} le lift
             </Button>
         </form>
     );

@@ -1,4 +1,4 @@
-// app/lift/new/page.tsx
+// app/lift/update/[id]/page.tsx
 "use client";
 import { useEffect, useState } from "react";
 import { useMutation, useQuery } from "react-query";
@@ -29,10 +29,10 @@ const AddLiftPage = () => {
 
     const params = useParams<{ id: string }>();
     const liftId = params.id;
-    const { data: existingLift, isLoading: isLoadingLift, isError } = useQuery(
+    const { data: existingLift, isLoading: isLoadingLift, isError, isIdle } = useQuery(
         ['lift', liftId],
         async () => {
-            const { data } = await axios.get(`/api/lift/${liftId}`);
+            const { data } = await axios.get<LiftWithId>(`/api/lift/${liftId}`);
             return data;
         },
         {
@@ -61,7 +61,8 @@ const AddLiftPage = () => {
     const handleSubmit = (e: React.FormEvent, newLift: Lift) => {
         e.preventDefault();
 
-        const parsed = liftWithIdSchema.safeParse(newLift);
+        const updatedLift = { ...newLift, id };
+        const parsed = liftWithIdSchema.safeParse(updatedLift);
 
         if (!parsed.success) {
             setErrorMessages(parsed.error.errors.map((err) => err.message));
@@ -80,17 +81,22 @@ const AddLiftPage = () => {
         }
     }, [errorMessages]);
 
-    if (isLoadingLift) return <Loader />;
+    if (isLoadingLift || isIdle) return <Loader />;
 
     if (isError) return <p>Error</p>;
+
+    const { id, ...otherProperties } = existingLift;
+    const basedLift: Lift = {
+        ...otherProperties,
+    };
 
     return (
         <div>
             <FormLift
                 handleSubmit={handleSubmit}
-                basedLift={existingLift}
+                basedLift={basedLift}
                 isLoading={isLoading}
-                isUpdateLift={true}
+                idUpdateLift={id}
             />
         </div >
     );
