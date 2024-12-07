@@ -2,7 +2,7 @@ import { createContext, ReactNode, useContext, useEffect, useState } from "react
 import { LiftWithId } from "../schemas/liftSchema";
 import { useMutation, UseMutationResult } from "react-query";
 import axios from "axios";
-import { toast } from "react-toastify";
+import { useToast } from "@/hooks/use-toast";
 import queryClient from "../lib/react-query";
 
 interface DeleteLiftContextType {
@@ -24,6 +24,7 @@ const DeleteLiftContext = createContext<DeleteLiftContextType>({
 export const DeleteLiftContextProvider = ({ children }: { children: ReactNode }) => {
     const [liftToDelete, setLiftToDelete] = useState<LiftWithId | null>(null);
     const [openDialog, setOpenDialog] = useState(false);
+    const { toast } = useToast();
 
     useEffect(() => {
         if (!openDialog && liftToDelete) {
@@ -37,7 +38,7 @@ export const DeleteLiftContextProvider = ({ children }: { children: ReactNode })
         }, {
         onSuccess: () => {
             setOpenDialog(false);
-            toast.success('Lift deleted successfully!');
+            toast({ title: 'Lift deleted successfully!' });
         },
         onSettled: () => {
             queryClient.invalidateQueries(["lift", "all"]);

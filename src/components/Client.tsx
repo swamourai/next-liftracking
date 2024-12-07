@@ -4,11 +4,10 @@ import { QueryClientProvider } from "react-query";
 import queryClient from "../lib/react-query";
 import { Oswald } from 'next/font/google';
 import Nav from "@/src/components/Nav";
-import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.min.css';
 import { PageProvider } from "../contexts/breadcrumbContext";
 import { DeleteLiftContextProvider } from "../contexts/deleteLiftContext";
 import DialogDeleteLift from "./DialogDeleteLift";
+import { Toaster } from "@/components/ui/toaster";
 
 const oswald = Oswald({
     weight: ['400', '700'],
@@ -33,9 +32,7 @@ export default function Client({
                             {children}
                         </div>
                     </section>
-                    <ToastContainer
-                        position="bottom-right"
-                        autoClose={3000} />
+                    <Toaster />
                     <DialogDeleteLift />
                 </DeleteLiftContextProvider>
             </PageProvider>

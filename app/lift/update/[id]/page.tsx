@@ -4,13 +4,13 @@ import { useEffect, useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import axios from "axios";
 import { Lift, LiftWithId, liftWithIdSchema } from "@/src/schemas/liftSchema";
-import { toast } from "react-toastify";
 import { useRouter } from 'next/navigation';
 import FormLift from "@/src/components/FormLift";
 import { useParams } from 'next/navigation';
 import queryClient from "@/src/lib/react-query";
 import Loader from "@/src/components/Loader";
 import { usePageContext } from "@/src/contexts/breadcrumbContext";
+import { useToast } from "@/hooks/use-toast";
 
 const updateLift = async (newLift: LiftWithId) => {
     const { data } = await axios.put(`/api/lift/${newLift.id}`, newLift);
@@ -18,6 +18,7 @@ const updateLift = async (newLift: LiftWithId) => {
 };
 
 const AddLiftPage = () => {
+    const { toast } = useToast();
     // title
     const { setBreadcrumbs } = usePageContext();
 
@@ -37,7 +38,10 @@ const AddLiftPage = () => {
         },
         {
             onError: (error: Error) => {
-                toast.error(`Something went wrong: ${error.message}`);
+                toast({
+                    title: "Something went wrong",
+                    description: error.message
+                });
                 router.push('/lift/all');
             },
             enabled: !!liftId, // Se déclenche uniquement si liftId est présent
@@ -50,7 +54,7 @@ const AddLiftPage = () => {
         onSuccess: () => {
             queryClient.invalidateQueries(["lift", "all"]);
             queryClient.invalidateQueries(["lift", liftId]);
-            toast.success('Lift modifié !');
+            toast({ title: 'Lift modifié !' });
             router.push('/lift/all');
         },
     });
@@ -75,11 +79,9 @@ const AddLiftPage = () => {
 
     useEffect(() => {
         if (errorMessages.length) {
-            errorMessages.forEach((message) => (
-                toast.warn(message)
-            ));
+            errorMessages.forEach((message) => toast({ title: message }));
         }
-    }, [errorMessages]);
+    }, [errorMessages, toast]);
 
     if (isLoadingLift || isIdle) return <Loader />;
 
