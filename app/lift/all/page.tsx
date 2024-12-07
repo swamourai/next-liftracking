@@ -15,6 +15,7 @@ import { Pencil, TicketCheck, TicketX, MessageCircle } from 'lucide-react';
 import Loader from "@/src/components/Loader";
 import { usePageContext } from "@/src/contexts/breadcrumbContext";
 import { useDeleteLiftContext } from "@/src/contexts/deleteLiftContext";
+import clsx from "clsx";
 
 const LiftListPage = () => {
     const { setOpenDialog, setLiftToDelete } = useDeleteLiftContext();
@@ -47,7 +48,7 @@ const LiftListPage = () => {
         <div>
             <ul>
                 {lifts.map((lift) => (
-                    <li key={lift.id} className="flex text-center h-[60px] items-center border-b-[2px] border-gray-100">
+                    <li key={lift.id} className="pull-up flex text-center h-[60px] items-center border-b-[2px] border-gray-100">
                         <span className="flex-1">
                             <Avatar className="m-auto">
                                 <AvatarImage src="https://github.com/swamourai.png" alt="@shadcn" />

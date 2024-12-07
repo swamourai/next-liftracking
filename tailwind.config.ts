@@ -8,6 +8,9 @@ const config: Config = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
 	"./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  safelist: [
+    'bg-pull-up', 'bg-muscle-up', 'bg-dips', 'bg-squat', // Ajoutez ici toutes les classes dynamiques
+  ],
   theme: {
   	extend: {
   		colors: {
