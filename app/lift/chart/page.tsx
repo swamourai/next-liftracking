@@ -11,9 +11,6 @@ import ChartPR from "@/src/components/ChartPR";
 import { liftNames } from "@/src/schemas/liftNameSchema";
 import Link from "next/link";
 
-// Déclarez les types pour `chartConfig`
-type LiftType = 'muscle-up' | 'dips' | 'pull-up' | 'squat';
-
 export default function Component() {
 
     const { setBreadcrumbs } = usePageContext();
@@ -34,25 +31,6 @@ export default function Component() {
     if (isError) return <p className="p-5">Erreur lors du chargement des données.</p>;
 
     if (!lifts.length) return <p className="p-5">Pas de lift disponible.</p>;
-
-    const chartConfig: Record<LiftType, { label: string; color: string }> = {
-        'muscle-up': {
-            label: "Muscle-up",
-            color: "hsl(var(--chart-muscle-up))",
-        },
-        'dips': {
-            label: "Dips",
-            color: "hsl(var(--chart-dips))",
-        },
-        'pull-up': {
-            label: "Pull-up",
-            color: "hsl(var(--chart-pull-up))",
-        },
-        'squat': {
-            label: "Squat",
-            color: "hsl(var(--chart-squat))",
-        },
-    };
 
     return (
         <>

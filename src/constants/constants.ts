@@ -15,4 +15,4 @@ export const CHART_CONFIG: Record<string, { label: string; color: string }> = {
         label: "Squat",
         color: "hsl(var(--chart-squat))",
     },
-}
+};

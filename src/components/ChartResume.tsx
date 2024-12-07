@@ -1,4 +1,3 @@
-import React from 'react'
 import { Label, Pie, PieChart } from "recharts";
 
 import {
@@ -108,7 +107,7 @@ function ChartResume({ lifts }: { lifts: LiftWithId[] }) {
                 ))}
             </ul>
         </>
-    )
+    );
 }
 
-export default ChartResume
+export default ChartResume;

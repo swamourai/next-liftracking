@@ -1,14 +1,11 @@
-import React from 'react'
-import { LiftWithId } from "@/src/schemas/liftSchema"
-import { Bar, BarChart, CartesianGrid, LabelList, XAxis, YAxis } from "recharts"
+import { LiftWithId } from "@/src/schemas/liftSchema";
+import { Bar, BarChart, CartesianGrid, LabelList, XAxis, YAxis } from "recharts";
 
 import {
-    ChartConfig,
     ChartContainer,
     ChartTooltip,
-    ChartTooltipContent,
-} from "@/components/ui/chart"
-import { CHART_CONFIG } from '../constants/constants'
+} from "@/components/ui/chart";
+import { CHART_CONFIG } from '../constants/constants';
 
 function ChartPR({ lifts }: { lifts: LiftWithId[] }) {
 
@@ -30,7 +27,6 @@ function ChartPR({ lifts }: { lifts: LiftWithId[] }) {
         };
     });
 
-
     interface TooltipData {
         lift: number;
         pr: number;
@@ -41,7 +37,7 @@ function ChartPR({ lifts }: { lifts: LiftWithId[] }) {
         payload?: { payload: TooltipData }[];  // Le payload est un tableau d'objets avec une clé 'payload' qui contient les données du graphique
         label?: string;
     }
-    const CustomTooltip = ({ active, payload, label }: CustomTooltipProps): JSX.Element | null => {
+    const CustomTooltip = ({ active, payload }: CustomTooltipProps): JSX.Element | null => {
         if (!active || !payload || payload.length === 0) return null;
 
         const data = payload[0].payload; // Récupérer les données associées au point
@@ -99,7 +95,7 @@ function ChartPR({ lifts }: { lifts: LiftWithId[] }) {
                 </ChartContainer>
             </div>
         </>
-    )
+    );
 }
 
-export default ChartPR
+export default ChartPR;
