@@ -30,6 +30,7 @@ export async function POST(req: Request) {
         password: hashedPassword,
         weight: data.weight,
         birthday: data.birthday ? new Date(data.birthday) : null,
+        gender: data.gender
       },
     });
 

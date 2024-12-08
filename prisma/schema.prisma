@@ -30,4 +30,5 @@ model User {
   password String
   weight Int?
   birthday DateTime?
+  gender String?
 }
