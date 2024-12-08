@@ -25,7 +25,9 @@ model Lift {
 
 model User {
   id       Int    @id @default(autoincrement())
-  email    String
+  email    String @unique
   username String
   password String
+  weight Int?
+  birthday DateTime?
 }
