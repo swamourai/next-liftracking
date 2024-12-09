@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { registerSchema } from "@/src/schemas/userSchema";
 import prisma from "@/src/lib/prisma";
+import { getSession } from "@/src/lib/iron-session";
 
 // Handler pour la méthode POST
 export async function POST(req: Request) {
@@ -34,7 +35,14 @@ export async function POST(req: Request) {
       },
     });
 
-    return NextResponse.json({ message: "User created successfully", user }, { status: 201 });
+    // Créer la session de l'utilisateur après l'enregistrement
+    const session = await getSession(); // Récupérer la session existante
+    session.isLoggedIn = true; // Marquer l'utilisateur comme connecté
+    session.email = user.email; // Stocker l'email de l'utilisateur dans la session
+    session.userId = user.id; // Stocker l'ID de l'utilisateur dans la session
+    await session.save(); // Sauvegarder la session
+
+    return NextResponse.json({ message: "User created successfully" }, { status: 201 });
   } catch (err: unknown) {
     if (err instanceof Error) {
       return NextResponse.json({ error: err.message }, { status: 400 });
