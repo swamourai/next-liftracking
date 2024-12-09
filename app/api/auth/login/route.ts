@@ -5,7 +5,8 @@ import { loginSchema } from "@/src/schemas/userSchema";
 
 export async function POST(req: Request) {
   try {
-    const data = loginSchema.parse(req.body);
+    const body = await req.json();
+    const data = loginSchema.parse(body);
 
     // Vérifier si l'utilisateur existe
     const user = await prisma.user.findUnique({
