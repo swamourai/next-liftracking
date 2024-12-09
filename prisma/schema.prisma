@@ -14,7 +14,7 @@ model Lift {
   rep          Int
   serie        Int
   weight       Float
-  userId       String
+  userId       Int
   type         String
   date         DateTime @default(now())
   comment      String?
