@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Lift" ALTER COLUMN "userId" SET DATA TYPE TEXT;

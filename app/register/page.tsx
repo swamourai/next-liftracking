@@ -23,6 +23,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import { usePageContext } from "@/src/contexts/breadcrumbContext";
 
 const addUser = async (userData: RegisterType) => {
     const { data } = await axios.post("/api/auth/register", userData);
@@ -31,6 +32,15 @@ const addUser = async (userData: RegisterType) => {
 
 function RegisterPage() {
     const { toast } = useToast();
+    // title
+    const { setBreadcrumbs } = usePageContext();
+
+    useEffect(() => {
+        setBreadcrumbs([
+            { title: 'Inscription' }
+        ]);
+    }, [setBreadcrumbs]);
+
     const [errorMessages, setErrorMessages] = useState<string[]>([]);
     const [date, setDate] = useState<Date | undefined>(undefined);
 

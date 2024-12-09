@@ -14,7 +14,7 @@ model Lift {
   rep          Int
   serie        Int
   weight       Float
-  userId       Int
+  userId       String
   type         String
   date         DateTime @default(now())
   comment      String?
@@ -24,11 +24,11 @@ model Lift {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  email    String @unique
+  id       Int       @id @default(autoincrement())
+  email    String    @unique
   username String
   password String
-  weight Int?
   birthday DateTime?
-  gender String?
+  weight   Int?
+  gender   String?
 }
