@@ -1,7 +1,9 @@
+// /pages/api/login/route.ts
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import prisma from "@/src/lib/prisma";
 import { loginSchema } from "@/src/schemas/userSchema";
+import { getSession } from "@/src/lib/iron-session";
 
 export async function POST(req: Request) {
   try {
@@ -17,14 +19,18 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Invalid email or password" }, { status: 401 });
     }
 
-    // session here
+    // Session here
+    const session = await getSession();
+    session.isLoggedIn = true;
+    session.email = user.email;
+    session.userId = user.id;
+    await session.save();
 
-    return NextResponse.json({ message: "Login successful", user }, { status: 200 });
+    return NextResponse.json({ message: "Login successful"}, { status: 200 });
   } catch (err: unknown) {
-      if (err instanceof Error) {
-        return NextResponse.json({ error: err.message }, { status: 400 });
-      }
-      // Pour les cas où l'erreur n'est pas une instance d'Error
-      return NextResponse.json({ error:  "An unexpected error occurred" }, { status: 400 });
+    if (err instanceof Error) {
+      return NextResponse.json({ error: err.message }, { status: 400 });
+    }
+    return NextResponse.json({ error: "An unexpected error occurred" }, { status: 400 });
   }
 }

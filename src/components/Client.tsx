@@ -8,6 +8,7 @@ import { PageProvider } from "../contexts/breadcrumbContext";
 import { DeleteLiftContextProvider } from "../contexts/deleteLiftContext";
 import DialogDeleteLift from "./DialogDeleteLift";
 import { Toaster } from "@/components/ui/toaster";
+import { SessionProvider } from "../contexts/SessionContext";
 
 const oswald = Oswald({
     weight: ['400', '700'],
@@ -23,19 +24,21 @@ export default function Client({
 }) {
     return (
         <QueryClientProvider client={queryClient}>
-            <PageProvider>
-                <DeleteLiftContextProvider>
-                    <h1 className={`text-gray-300 tracking-widest uppercase absolute text-5xl top-[10px] text-center w-full font-bold sm:text-8xl sm:top-0 ${oswald.className}`}>Liftracking</h1>
-                    <section className="max-w-[850px] w-full bg-white z-1 relative m-auto top-[70px] rounded min-h-[400px] mb-40">
-                        <Nav />
-                        <div>
-                            {children}
-                        </div>
-                    </section>
-                    <Toaster />
-                    <DialogDeleteLift />
-                </DeleteLiftContextProvider>
-            </PageProvider>
+            <SessionProvider>
+                <PageProvider>
+                    <DeleteLiftContextProvider>
+                        <h1 className={`text-gray-300 tracking-widest uppercase absolute text-5xl top-[10px] text-center w-full font-bold sm:text-8xl sm:top-0 ${oswald.className}`}>Liftracking</h1>
+                        <section className="max-w-[850px] w-full bg-white z-1 relative m-auto top-[70px] rounded min-h-[400px] mb-40">
+                            <Nav />
+                            <div>
+                                {children}
+                            </div>
+                        </section>
+                        <Toaster />
+                        <DialogDeleteLift />
+                    </DeleteLiftContextProvider>
+                </PageProvider>
+            </SessionProvider>
         </QueryClientProvider>
     );
 }

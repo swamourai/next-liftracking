@@ -4,10 +4,11 @@ import { useToast } from "@/hooks/use-toast";
 import { useEffect, useState, FormEvent, ReactNode } from "react";
 import { ZodObject, ZodSchema } from "zod";
 import { usePageContext } from "../contexts/breadcrumbContext";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { AxiosError } from "axios";
 import { Button } from "@/components/ui/button";
 import { getRequiredFields } from "../schemas/userSchema";
+import { useRouter } from "next/navigation";
 
 interface AuthFormProps<T, R> {
     schema: ZodSchema<T>;
@@ -17,6 +18,7 @@ interface AuthFormProps<T, R> {
 }
 
 function AuthForm<T, R>({ schema, title, children, mutationFn }: AuthFormProps<T, R>) {
+    const router = useRouter();
     // title
     const { setBreadcrumbs } = usePageContext();
 
@@ -38,9 +40,13 @@ function AuthForm<T, R>({ schema, title, children, mutationFn }: AuthFormProps<T
         }
     }, [errorMessages, toast]);
 
+    const queryClient = useQueryClient(); // Correct usage of useQueryClient
+
     const { mutate: mutateFn, isLoading } = useMutation(mutationFn, {
         onSuccess: () => {
             toast({ title: "Succès !" });
+            queryClient.invalidateQueries(["session"]);
+            router.push("/");
         },
         onError: (error: AxiosError<{ error: string }>) => {
             toast({
