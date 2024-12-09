@@ -15,9 +15,10 @@ interface AuthFormProps<T, R> {
     title: string;
     children: ReactNode;
     mutationFn: (data: T) => Promise<R>; // R représente le type de la réponse de la mutation
+    successMessage: string
 }
 
-function AuthForm<T, R>({ schema, title, children, mutationFn }: AuthFormProps<T, R>) {
+function AuthForm<T, R>({ schema, title, children, mutationFn, successMessage }: AuthFormProps<T, R>) {
     const router = useRouter();
     // title
     const { setBreadcrumbs } = usePageContext();
@@ -44,7 +45,7 @@ function AuthForm<T, R>({ schema, title, children, mutationFn }: AuthFormProps<T
 
     const { mutate: mutateFn, isLoading } = useMutation(mutationFn, {
         onSuccess: () => {
-            toast({ title: "Succès !" });
+            toast({ title: successMessage });
             queryClient.invalidateQueries(["session"]);
             router.push("/");
         },

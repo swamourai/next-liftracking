@@ -11,7 +11,7 @@ const loginUser = async (data: LoginType) => {
 };
 
 export default function LoginPage() {
-    return <AuthForm schema={loginSchema} mutationFn={loginUser} title="Connexion">
+    return <AuthForm schema={loginSchema} mutationFn={loginUser} title="Connexion" successMessage="Connexion réussi !">
         <div className="grid grid-cols-2 gap-5 mb-5">
             <div>
                 <label htmlFor="email">E-mail</label>

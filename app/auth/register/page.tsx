@@ -32,7 +32,7 @@ export default function RegisterPage() {
     const [date, setDate] = useState<Date | undefined>(undefined);
 
     return (
-        <AuthForm schema={registerSchema} title="Inscription" mutationFn={registerUser}>
+        <AuthForm schema={registerSchema} title="Inscription" mutationFn={registerUser} successMessage="Inscription réussi ! Vous êtes maintenant connecté !">
             <div className="grid grid-cols-2 gap-5 mb-5">
                 <div>
                     <label htmlFor="email">E-mail <sup className="text-red-800">*</sup></label>
