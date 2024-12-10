@@ -6,7 +6,6 @@ import { getIronSession, SessionOptions } from 'iron-session';
 import { SessionData } from '../schemas/session.type';
 
 const sessionOptions: SessionOptions = {
-    // You need to create a secret key at least 32 characters long.
     password: process.env.SESSION_SECRET!,
     cookieName: "liftracking-session",
     cookieOptions: {

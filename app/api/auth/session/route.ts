@@ -9,8 +9,6 @@ export async function GET() {
   if (!session || !session.isLoggedIn) {
     return NextResponse.json({
       isLoggedIn: false,
-      userId: null,
-      email: null,
     });
   }
 
